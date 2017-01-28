@@ -1,10 +1,10 @@
-## Arthur
+# Arthur
 ChatBot. 
 
-# Description
+## Description
 
-# Build
+## Build
 
-# Authors
+## Authors
 Mark Griffith
 Jordan Lane
