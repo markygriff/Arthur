@@ -9,27 +9,25 @@
 from uber_rides.session import Session
 from uber_rides.client import UberRidesClient
 import json
+import google_geocode
 
 
-def get_products(client):
-    result = [];
-    response = client.get_products(37.77, -122.41)
-    products = response.json.get('products')
+def get_prices(start, end):
+    start_latlon = google_geocode.get_latlon(start)
+    end_latlon = google_geocode.getlatlon(end)
+    session = Session(server_token='2L2ejAw48Rafdg9S9gGnm1yL9AfpcPUSak3YONWF')
+    client = UberRidesClient(session)
 
-
-    for i in range(len(products)):
-        result.append(products[i]["description"])
-
-    return result
-
-
-def get_prices(client):
     result = [];
     response = client.get_price_estimates(
-        start_latitude=53.545830,
-        start_longitude=-113.499032,
-        end_latitude=53.523279,
-        end_longitude=-113.527407,
+        # start_latitude=53.545830,
+        # start_longitude=-113.499032,
+        # end_latitude=53.523279,
+        # end_longitude=-113.527407,
+        start_latitude = start_latlon[0]
+        start_longitude = start_latlon[1]
+        end_latitude = end_latlon[0]
+        end_longitude = end_latlon[0]
     )
 
     estimation = response.json.get('prices')
@@ -38,21 +36,6 @@ def get_prices(client):
          result.append(estimation[i]["display_name"] + ": " + estimation[i]["estimate"])
 
     return result
-
-
-def main():
-    uber_fn_dict = {"Prices": get_prices, "Products": get_products}
-
-    session = Session(server_token='2L2ejAw48Rafdg9S9gGnm1yL9AfpcPUSak3YONWF')
-    client = UberRidesClient(session)
-
-    uinput = raw_input("How can uber help you today? ")
-
-    run_fn = uber_fn_dict[uinput]
-    result = run_fn(client)
-
-    for i in range(len(result)):
-        print result[i];
 
 
 if __name__ == "__main__":
