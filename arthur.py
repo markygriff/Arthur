@@ -8,7 +8,7 @@ class Arthur:
 
     def __init__(self):
 
-        self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"What type of news?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"], "restaurant": [self.do_places, "Bar or Dine?"]}
+        self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"WWhich news source?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"], "restaurant": [self.do_places, "Bar or Dine?"]}
         self.quest_word = None
         self.questing = False
 
@@ -16,7 +16,7 @@ class Arthur:
         result = self.dict[self.quest_word][0](msg)
         string = "Here's what I got for ya pal!\n\n"
         for i in result:
-            string += "> " + i + "\n"
+            string += "> " + i + "\n\n"
         return string
 
 
@@ -42,8 +42,8 @@ class Arthur:
 
 
 
-    def do_news(self, type_of_news):
-        return topnews_controller.get_top_news()
+    def do_news(self, news_source):
+        return topnews_controller.get_top_news(news_source)
 
 
     def do_places(self,category):

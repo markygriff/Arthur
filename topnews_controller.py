@@ -21,9 +21,8 @@ def get_top_news(news_source):
     response = urllib2.urlopen("https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=d1159719ec474bf1b82575b5b8478bef")
     data = json.load(response)
 
-    for i in range(len(data["articles"])):
-        articles.append(data["articles"][i]["title"])
-
+    for i in range(3):
+        articles.append(data["articles"][i]["title"] + "\n" + data["articles"][i]["url"])
     return articles
 
 if __name__ == '__main__':
