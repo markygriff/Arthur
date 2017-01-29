@@ -1,6 +1,6 @@
 import string
 import topnews_controller
-import phrases 
+import phrases
 import uber_controller
 
 
@@ -33,7 +33,7 @@ class Arthur:
         '''
         # Hardcoded Input: "Start" to "End"
         route = route.split(" to ")
-        print(route)
+        print(uber_controller.get_prices(route[0], route[1]));
         print "uber"
 
 
