@@ -3,7 +3,6 @@ class Arthur:
     def __init__(self):
         self.fn_dict = {"Uber": self.do_uber, "Movies": self.do_movies, "Weather": self.do_weather}
         self.questing = False
-        self.
 
     def input_handler(self, msg):
         '''
@@ -21,6 +20,7 @@ class Arthur:
                 trigger_word = word
                 break
             else: self.question = False
+
         return reply_msg
 
 
