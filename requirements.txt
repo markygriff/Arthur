@@ -1,0 +1,5 @@
+flask
+requests
+textblob
+pyowm
+python-google-places

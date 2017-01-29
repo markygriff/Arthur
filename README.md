@@ -1,10 +1,14 @@
 # Arthur
-ChatBot. 
+A ChatBot. 
+
+## Dependencies
+    $ pip install -r requirements.txt
 
 ## Description
 
-## Build
+## Running the Server
+    $ python server.py
 
 ## Authors
-Mark Griffith
+Mark Griffith,
 Jordan Lane

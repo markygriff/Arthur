@@ -2,10 +2,11 @@
 #   sudo pip install textblob
 #   python -m textblob.download_corpora
 
-GREETINGS = ["hello","hi","hey","sup","greetings","howdy"]
+GREETINGS = ["hello","hi","hey","sup","greetings","howdy","yo"]
 GOODBYES = ["goodbye, bye", "cya"]
-DEFAULT_RESPONSES = ["I'm sorry, I don't quite understand what you mean.", "huh...?", "I'm not that smart yet, sorry!", "*stares at you wantingly*"]
-GREETING_RESPONSES = ["I. Am. Arthur.", "Hey buddy!", "Hey there, what can I do for ya?","Howdy!"]
+DEFAULT_RESPONSES = ["I'm sorry, I don't quite understand what you mean.", "*stares at you wantingly*"]
+GREETING_RESPONSES = ["I. Am. Arthur.", "Hey buddy!", "Hey there, what can I do for ya?","Howdy!","Ohhhhh snap!"]
+GOODBYE_RESPONSES = ["Later Gator!"]
 RESPONSES_ABOUT_USER = ["Ok!","Swell!","I'm a meme!","Thanks...?"]
 
 PRONOUNS = ["PRP","PRP$","WP","WP$"]
@@ -22,16 +23,22 @@ def check_for_greeting(msg):
         if word.lower() in GREETINGS:
             return random.choice(GREETING_RESPONSES)
 
+def check_for_goodbye(msg):
+    for word in msg.split(" "):
+        if word.lower() in GOODBYES:
+            return random.choice(GOODBYE_RESPONSES)
+
 def determine_response(msg):
     # clean = preprocess_text(msg)
     blob = TextBlob(msg)
     pronoun, noun, adjective, verb = find_candidate_parts_of_sentence(blob)
-    print pronoun, noun, adjective, verb
+    # print pronoun, noun, adjective, verb
     # check for comment directly targeted towards our bot
     # resp = check_for_direct_comment(pronoun, noun, adjective)
     resp = None
     if not resp:
         resp = check_for_greeting(blob)
+        # resp = check_for_goodbye(blob)
     if not resp:
         # no pronoun
         if not pronoun:
@@ -40,8 +47,8 @@ def determine_response(msg):
         elif pronoun == "I" and not verb:
             resp = random.choice(RESPONSES_ABOUT_USER)
         else:
-            # resp = construct_response(pronoun, noun, verb)
-            resp = random.choice(DEFAULT_RESPONSES)
+            resp = construct_response(pronoun, noun, verb)
+            # resp = random.choice(DEFAULT_RESPONSES)
     if not resp:
         resp = random.choice(DEFAULT_RESPONSES)
     return resp
@@ -49,8 +56,27 @@ def determine_response(msg):
 def check_for_direct_comment(pronoun, noun, adjective):
     return None
 
+def starts_with_vowel(noun):
+    if noun[0] in ('a','e','i','o','u'):
+        return True
+    return False
+
 def construct_response(pronoun, noun, verb):
-    return None
+    resp = []
+    if pronoun:
+        resp.append(pronoun)
+    if verb:
+        curr_verb = verb[0]
+        if curr_verb in ('be','am','is',"'m'"):
+            if pronoun.lower() == 'you':
+                resp.append("aren't really")
+            else:
+                resp.append(curr_verb)
+    if noun:
+        pronoun = "an" if starts_with_vowel(noun) else 'a'
+        resp.append(pronoun + " " + noun)
+    resp.append(random.choice(('friend', '...shrek is love', 'ayyyy lmao', '')))
+    return " ".join(resp)
 
 def find_candidate_parts_of_sentence(blob):
     pronoun = None
