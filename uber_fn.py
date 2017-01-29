@@ -1,6 +1,7 @@
 # Uber Ride Request
 #  pip install uber-rides
 # http://stackoverflow.com/questions/11960602/how-to-add-something-to-pythonpath
+# https://developer.uber.com/docs/riders/ride-requests/tutorials/api/python
 
 # Startup Edmonton Lat/Lon = 53.545830, -113.499032
 # Butterdome Lat/Lon = 53.523279, -113.527407
