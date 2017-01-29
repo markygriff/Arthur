@@ -1,9 +1,10 @@
 import string
+import topnews_controller
 
 class Arthur:
 
     def __init__(self):
-        self.fn_dict = {"uber": self.do_uber, "news": self.do_movies, "weather": self.do_weather}
+        self.fn_dict = {"uber": self.do_uber, "news": self.do_news, "weather": self.do_weather}
         self.questing = False
 
     def input_handler(self, msg):
@@ -40,7 +41,7 @@ class Arthur:
         print "uber"
 
     def do_news(self):
-        print 'movies'
+        print topnews_controller.get_top_news()
 
     def do_places(self):
         print "places"
@@ -55,3 +56,4 @@ if __name__ == '__main__':
     x = Arthur()
     prompt = raw_input("Prompt: ")
     x.input_handler(prompt)
+    

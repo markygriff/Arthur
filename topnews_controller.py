@@ -7,8 +7,8 @@ import json
 def get_top_news():
     '''Returns list of top news stories. Powered by News API
 
-        Currently returns a list of the top news headlines.
-        Possible TODO: allow user to 
+        TODO: select news source [or categories such as sports, tech etc]
+        Possible TODO: allow user to click link and go to the article
 
         News API Key: d1159719ec474bf1b82575b5b8478bef
         Default GET: https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey={API_KEY}
