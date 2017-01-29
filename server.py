@@ -61,29 +61,31 @@ def handle_incoming_messages():
     for sender, message in messaging_events(payload):
         print "Incoming from %s: %s" % (sender, message)
         if arthur.questing == False:
-            response = arthur.handle_input(message) # returns None if not action prompt
+            response = arthur.handle_input(message)
         else:
+            print "MESSAGE <", message, ">"
             response = arthur.respond_to(message)
             arthur.questing = False
         print "Outgoing to %s: %s" % (sender, response)
         send_message(sender, response)
+        break
     return "ok"
 
-@app.route('/', methods=['POST'])
-def greeting():
-    # "Content-Type": "application/json" {
-    # "setting_type":"greeting",
-    # "greeting":{ "text": "Arthur Is Your Friend."}
-
-    r = requests.post("https://graph.facebook.com/v2.6/me/thread_settings",
-        params={"access_token": ACCESS_TOKEN},
-        data=json.dumps({
-            "setting_type": "greeting",
-            "greeting":{ "text": "ARTHUR."}
-        }),
-        headers={'Content-type': 'application/json'})
-    if r.status_code != requests.codes.ok:
-        print r.text
+# @app.route('/', methods=['POST'])
+# def greeting():
+#     # "Content-Type": "application/json" {
+#     # "setting_type":"greeting",
+#     # "greeting":{ "text": "Arthur Is Your Friend."}
+#
+#     r = requests.post("https://graph.facebook.com/v2.6/me/thread_settings",
+#         params={"access_token": ACCESS_TOKEN},
+#         data=json.dumps({
+#             "setting_type": "greeting",
+#             "greeting":{ "text": "ARTHUR."}
+#         }),
+#         headers={'Content-type': 'application/json'})
+#     if r.status_code != requests.codes.ok:
+#         print r.text
 
 @app.route('/', methods=['GET'])
 def handle_verification():

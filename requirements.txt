@@ -3,3 +3,5 @@ requests
 textblob
 pyowm
 python-google-places
+googlemaps
+uber_rides
