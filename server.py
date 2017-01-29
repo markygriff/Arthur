@@ -1,4 +1,7 @@
 from flask import Flask, request
+from arthur import Arthur
+
+arthur = Arthur()
 
 app = Flask(__name__)
 
@@ -23,7 +26,8 @@ def handle_incoming_messages():
     data = request.json
     sender = data['entry'][0]['messaging'][0]['sender']['id']
     message = data['entry'][0]['messaging'][0]['message']['text']
-    reply(sender, message[::-1])
+    reply_msg = arthur.input_handler(message)
+    reply(sender, reply_msg)
     return "ok"
 
 @app.route('/', methods=['GET'])
