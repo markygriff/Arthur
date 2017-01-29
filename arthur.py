@@ -1,7 +1,9 @@
+import string
+
 class Arthur:
 
     def __init__(self):
-        self.fn_dict = {"Uber": self.do_uber, "Movies": self.do_movies, "Weather": self.do_weather}
+        self.fn_dict = {"uber": self.do_uber, "news": self.do_movies, "weather": self.do_weather}
         self.questing = False
 
     def input_handler(self, msg):
@@ -11,17 +13,16 @@ class Arthur:
         returns:
             reply - reply to recipient
         '''
+        refine_msg = msg.translate(None, string.punctuation).lower()
+        #Scan input -> run function
 
-        reply_msg = "Sorry, I don't quite understand you."
-        # first figure out whether arthur is required to carry out a quest
-        for word in msg.split(" "):
-            if word in trigger_words:
+        for word in refine_msg.split(" "):
+            if word in self.fn_dict:
                 self.questing = True
-                trigger_word = word
+                self.fn_dict[word]();
                 break
             else: self.question = False
-
-        return reply_msg
+        return
 
 
     def greeting(self):
@@ -34,13 +35,23 @@ class Arthur:
         a()
 
     def do_uber(self):
+        '''TODO: Ask user start and end locations [How do we ask the user?]
+        '''
         print "uber"
 
-    def do_movies(self):
+    def do_news(self):
         print 'movies'
+
+    def do_places(self):
+        print "places"
+
+    def do_stock(self):
+        print "stock"
 
     def do_weather(self):
         print "weather"
 
 if __name__ == '__main__':
-    greeting()
+    x = Arthur()
+    prompt = raw_input("Prompt: ")
+    x.input_handler(prompt)
