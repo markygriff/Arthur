@@ -1,17 +1,13 @@
 from flask import Flask, request
-from arthur import Arthur
-
-arthur = Arthur()
-
-app = Flask(__name__)
-
-from flask import Flask, request
+# from arthur import Arthur
+import phrases
 import requests
+# arthur = Arthur()
 
 app = Flask(__name__)
 
 ACCESS_TOKEN = "EAACZBlPXesb0BALRYMeooVhYbScAAJFXd3ZBAJHxZCrD3ZAK5sGyrkeD8WnI3Mck5fr98AHryCJC8lBE9VfQqTWsU9oPSqQpeNxrDhlXTd4Br4ewyzOfLXB3e03eRrzFvSuA6pyFVTw6AukSjh4a5Jfe8XrhlAYXxFGrHnoZAiwZDZD"
-
+ACTION_WORD = None
 
 def reply(user_id, msg):
     data = {
@@ -26,7 +22,12 @@ def handle_incoming_messages():
     data = request.json
     sender = data['entry'][0]['messaging'][0]['sender']['id']
     message = data['entry'][0]['messaging'][0]['message']['text']
-    reply_msg = arthur.input_handler(message)
+    if ACTION_WORD == None:
+        reply_msg, ACTION_WORD = arthur.classify_input(message) # returns None if not action prompt
+        if ACTION_WORD == None:
+            reply_msg = phrases.determine_response(message)
+    else:
+        reply_msg = arthur.action(ACTION_WORD)
     reply(sender, reply_msg)
     return "ok"
 
