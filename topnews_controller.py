@@ -4,7 +4,7 @@
 import urllib2
 import json
 
-def get_top_news():
+def get_top_news(news_source):
     '''Returns list of top news stories. Powered by News API
 
         TODO: select news source [or categories such as sports, tech etc]
@@ -16,6 +16,8 @@ def get_top_news():
 
     '''
     articles = []
+    news_source = news_source.strip().lower()
+    news_source = news_source.replace(" " , "-")
     response = urllib2.urlopen("https://newsapi.org/v1/articles?source=cnn&sortBy=top&apiKey=d1159719ec474bf1b82575b5b8478bef")
     data = json.load(response)
 
@@ -25,4 +27,4 @@ def get_top_news():
     return articles
 
 if __name__ == '__main__':
-    print(get_top_news())
+    print(get_top_news("cnn"))
