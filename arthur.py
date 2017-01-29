@@ -1,6 +1,8 @@
 import string
 import topnews_controller
-import phrases
+import phrases 
+import uber_controller
+
 
 class Arthur:
 
@@ -25,18 +27,13 @@ class Arthur:
         self.questing = False
         return phrases.determine_response(msg)
 
-    def greeting(self):
-        print "Hello, I'm Arthur."
-        fn = raw_input("Is there anything I can do for you?")
-        init_fn(fn)
 
-    def init_fn(self, fn):
-        a = fn_dict[fn]
-        a()
-
-    def do_uber(self, where_to_where):
+    def do_uber(self, route):
         '''TODO: Ask user start and end locations [How do we ask the user?]
         '''
+        # Hardcoded Input: "Start" to "End"
+        route = route.split(" to ")
+        print(route)
         print "uber"
 
 
