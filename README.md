@@ -5,13 +5,13 @@ You👏Don't👏Know👏ChatBots👏Unless👏You👏Know👏Arthur.
     $ pip install -r requirements.txt
 
 ## Description
-☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️
-> Having fun isn't hard when you've got a library card .        ☄️
+Arthur is a Facebook messenger ChatBot that'll help you have that wonderful kind of day ☀️
+> Having fun isn't hard when you've got a library card 
 
-☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️☄️
 ## Running the Server
     $ python server.py
 
 ## Authors
-Mark Griffith &
-Jordan Lane
+Mark Griffith.
+
+Jordan Lane.
