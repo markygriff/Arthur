@@ -1,5 +1,5 @@
 def greeting():
-    print("Hello, I'm Arthur.")
+    print "Hello, I'm Arthur."
     fn = raw_input("Is there anything I can do for you?")
     init_fn(fn)
 
@@ -16,7 +16,7 @@ def do_movies():
 def do_weather():
     print "weather"
 
-fn_dict = {"Uber": do_uber(), "Movies": do_movies, "Weather": do_weather}
+fn_dict = {"Uber": do_uber, "Movies": do_movies, "Weather": do_weather}
 
 if __name__ == '__main__':
     greeting()
