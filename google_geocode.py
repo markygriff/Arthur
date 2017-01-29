@@ -16,4 +16,6 @@ def get_latlon(loc):
     return latlon
 
 if __name__ == '__main__':
-    get_latlon("1600 Amphitheatre Parkway, Mountain View, CA")
+    print(get_latlon("Butterdome"))
+    print(get_latlon("Lister Centre"))
+    #get_latlon("1600 Amphitheatre Parkway, Mountain View, CA")

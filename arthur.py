@@ -13,7 +13,13 @@ class Arthur:
         self.questing = False
 
     def respond_to(self, msg):
-        return self.dict[self.quest_word][0](msg)
+        result = self.dict[self.quest_word][0](msg)
+        string = ""
+        for i in result:
+            string += string + " " + i
+
+        return string
+
 
 
     def handle_input(self,msg):
@@ -33,8 +39,8 @@ class Arthur:
         '''
         # Hardcoded Input: "Start" to "End"
         route = route.split(" to ")
-        print(uber_controller.get_prices(route[0], route[1]));
-        print "uber"
+        return uber_controller.get_prices(route[0], route[1]));
+
 
 
     def do_news(self, type_of_news):
