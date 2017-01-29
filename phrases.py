@@ -3,7 +3,7 @@
 #   python -m textblob.download_corpora
 
 GREETINGS = ["hello","hi","hey","sup","greetings","howdy","yo"]
-GOODBYES = ["goodbye, bye", "cya"]
+GOODBYES = ["goodbye", "bye", "cya"]
 DEFAULT_RESPONSES = ["I'm sorry, I don't quite understand what you mean.", "*stares at you wantingly*"]
 GREETING_RESPONSES = ["I. Am. Arthur.", "Hey buddy!", "Hey there, what can I do for ya?","Howdy!","Ohhhhh snap!"]
 GOODBYE_RESPONSES = ["Later Gator!"]
@@ -22,9 +22,6 @@ def check_for_greeting(msg):
     for word in msg.split(" "):
         if word.lower() in GREETINGS:
             return random.choice(GREETING_RESPONSES)
-
-def check_for_goodbye(msg):
-    for word in msg.split(" "):
         if word.lower() in GOODBYES:
             return random.choice(GOODBYE_RESPONSES)
 
@@ -51,6 +48,8 @@ def determine_response(msg):
             # resp = random.choice(DEFAULT_RESPONSES)
     if not resp:
         resp = random.choice(DEFAULT_RESPONSES)
+    if msg.isupper():
+        return resp.upper()    
     return resp
 
 def check_for_direct_comment(pronoun, noun, adjective):

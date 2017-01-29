@@ -8,13 +8,13 @@ app = Flask(__name__)
 
 ACCESS_TOKEN = "EAACZBlPXesb0BALRYMeooVhYbScAAJFXd3ZBAJHxZCrD3ZAK5sGyrkeD8WnI3Mck5fr98AHryCJC8lBE9VfQqTWsU9oPSqQpeNxrDhlXTd4Br4ewyzOfLXB3e03eRrzFvSuA6pyFVTw6AukSjh4a5Jfe8XrhlAYXxFGrHnoZAiwZDZD"
 
-def reply(user_id, msg):
-    data = {
-        "recipient": {"id": user_id},
-        "message": {"text": msg}
-    }
-    resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
-    print(resp.content)
+# def reply(user_id, msg):
+#     data = {
+#         "recipient": {"id": user_id},
+#         "message": {"text": msg}
+#     }
+#     resp = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token=" + ACCESS_TOKEN, json=data)
+#     print(resp.content)
 
 # @app.route('/', methods=['POST'])
 # def handle_incoming_messages():
@@ -68,6 +68,22 @@ def handle_incoming_messages():
         print "Outgoing to %s: %s" % (sender, response)
         send_message(sender, response)
     return "ok"
+
+@app.route('/', methods=['POST'])
+def greeting():
+    # "Content-Type": "application/json" {
+    # "setting_type":"greeting",
+    # "greeting":{ "text": "Arthur Is Your Friend."}
+
+    r = requests.post("https://graph.facebook.com/v2.6/me/thread_settings",
+        params={"access_token": ACCESS_TOKEN},
+        data=json.dumps({
+            "setting_type": "greeting",
+            "greeting":{ "text": "ARTHUR."}
+        }),
+        headers={'Content-type': 'application/json'})
+    if r.status_code != requests.codes.ok:
+        print r.text
 
 @app.route('/', methods=['GET'])
 def handle_verification():
