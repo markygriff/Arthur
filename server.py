@@ -1,6 +1,5 @@
 from flask import Flask, request
 from arthur import Arthur
-import phrases
 import requests
 import json
 arthur = Arthur()
@@ -8,7 +7,6 @@ arthur = Arthur()
 app = Flask(__name__)
 
 ACCESS_TOKEN = "EAACZBlPXesb0BALRYMeooVhYbScAAJFXd3ZBAJHxZCrD3ZAK5sGyrkeD8WnI3Mck5fr98AHryCJC8lBE9VfQqTWsU9oPSqQpeNxrDhlXTd4Br4ewyzOfLXB3e03eRrzFvSuA6pyFVTw6AukSjh4a5Jfe8XrhlAYXxFGrHnoZAiwZDZD"
-ACTION_WORD = None
 
 def reply(user_id, msg):
     data = {
@@ -62,16 +60,11 @@ def handle_incoming_messages():
     payload = request.get_data()
     for sender, message in messaging_events(payload):
         print "Incoming from %s: %s" % (sender, message)
-
-        # if ACTION_WORD == None:
-        #     response, ACTION_WORD = arthur.classify_input(message) # returns None if not action prompt
-        #     if ACTION_WORD == None:
-        #         response = phrases.determine_response(message)
-        # else:
-        #     response = arthur.action(ACTION_WORD,message)
-
-        response = phrases.determine_response(message)
-
+        if arthur.questing == False:
+            response = arthur.handle_input(message) # returns None if not action prompt
+        else:
+            response = arthur.respond_to(message)
+            arthur.questing = False
         print "Outgoing to %s: %s" % (sender, response)
         send_message(sender, response)
     return "ok"
@@ -89,4 +82,3 @@ def handle_verification():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    ACTION_WORD = None

@@ -4,8 +4,9 @@
 
 GREETINGS = ["hello","hi","hey","sup","greetings","howdy","yo"]
 GOODBYES = ["goodbye, bye", "cya"]
-DEFAULT_RESPONSES = ["I'm sorry, I don't quite understand what you mean.", "huh...?", "I'm not that smart yet, sorry!", "*stares at you wantingly*"]
+DEFAULT_RESPONSES = ["I'm sorry, I don't quite understand what you mean.", "*stares at you wantingly*"]
 GREETING_RESPONSES = ["I. Am. Arthur.", "Hey buddy!", "Hey there, what can I do for ya?","Howdy!","Ohhhhh snap!"]
+GOODBYE_RESPONSES = ["Later Gator!"]
 RESPONSES_ABOUT_USER = ["Ok!","Swell!","I'm a meme!","Thanks...?"]
 
 PRONOUNS = ["PRP","PRP$","WP","WP$"]
@@ -22,6 +23,11 @@ def check_for_greeting(msg):
         if word.lower() in GREETINGS:
             return random.choice(GREETING_RESPONSES)
 
+def check_for_goodbye(msg):
+    for word in msg.split(" "):
+        if word.lower() in GOODBYES:
+            return random.choice(GOODBYE_RESPONSES)
+
 def determine_response(msg):
     # clean = preprocess_text(msg)
     blob = TextBlob(msg)
@@ -32,6 +38,7 @@ def determine_response(msg):
     resp = None
     if not resp:
         resp = check_for_greeting(blob)
+        # resp = check_for_goodbye(blob)
     if not resp:
         # no pronoun
         if not pronoun:
