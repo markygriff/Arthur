@@ -34,7 +34,7 @@ def get_prices(start, end):
 
     for i in range(len(estimation)):
          result.append(estimation[i]["display_name"] + ": " + estimation[i]["estimate"])
-
+    print result
     return result
 
 

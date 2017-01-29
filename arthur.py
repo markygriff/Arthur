@@ -14,10 +14,9 @@ class Arthur:
 
     def respond_to(self, msg):
         result = self.dict[self.quest_word][0](msg)
-        string = ""
+        string = "Here's what I got for ya pal!\n\n"
         for i in result:
-            string += string + " " + i
-
+            string += "> " + i + "\n"
         return string
 
 
@@ -39,7 +38,7 @@ class Arthur:
         '''
         # Hardcoded Input: "Start" to "End"
         route = route.split(" to ")
-        return uber_controller.get_prices(route[0], route[1]));
+        return uber_controller.get_prices(route[0], route[1]);
 
 
 
