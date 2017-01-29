@@ -2,13 +2,13 @@
 A ChatBot. 
 
 ## Dependencies
-$ pip install -r requirements.txt
+    $ pip install -r requirements.txt
 
 ## Description
 
 ## Running the Server
-$ python server.py
+    $ python server.py
 
 ## Authors
-Mark Griffith
+Mark Griffith,
 Jordan Lane
