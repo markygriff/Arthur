@@ -4,27 +4,24 @@ import topnews_controller
 class Arthur:
 
     def __init__(self):
-        self.fn_dict = {"uber": self.do_uber, "news": self.do_news, "weather": self.do_weather}
+        self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"What type of news?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"]}
         self.questing = False
 
-    def input_handler(self, msg):
-        '''
-        params:
-            msg - input string for arthur to handle
-        returns:
-            reply - reply to recipient
-        '''
+    def action(self,msg):
+        self.dict[word][0]()
+
+
+    def classify_input(self,msg):
         refine_msg = msg.translate(None, string.punctuation).lower()
-        #Scan input -> run function
+
+        follow_up = None
+        word = None
 
         for word in refine_msg.split(" "):
-            if word in self.fn_dict:
-                self.questing = True
-                self.fn_dict[word]();
-                break
-            else: self.question = False
-        return
+            if word in self.dict:
+                return [self.dict[word][1], word]
 
+        return [None, None]
 
     def greeting(self):
         print "Hello, I'm Arthur."
@@ -55,5 +52,4 @@ class Arthur:
 if __name__ == '__main__':
     x = Arthur()
     prompt = raw_input("Prompt: ")
-    x.input_handler(prompt)
-    
+    x.classify_input(prompt)
