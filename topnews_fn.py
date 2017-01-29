@@ -4,8 +4,11 @@
         News API Key: d1159719ec474bf1b82575b5b8478bef
         Default GET: https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey={API_KEY}
         API has two options: source, sortBy [to change these options you can modify the GET URL]
+
+        pip install urllib2
+        pip install json
         '''
-        
+
 import urllib2
 import json
 
