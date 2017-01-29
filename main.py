@@ -1,3 +1,6 @@
+# pip install requests
+# pip install flask
+
 def greeting():
     print "Hello, I'm Arthur."
     fn = raw_input("Is there anything I can do for you?")
