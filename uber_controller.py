@@ -32,9 +32,11 @@ def get_prices(start, end):
 
     estimation = response.json.get('prices')
 
+
     for i in range(len(estimation)):
          result.append(estimation[i]["display_name"] + ": " + estimation[i]["estimate"])
 
+    print "RAW UBER RESULT:" + result
     return result
 
 

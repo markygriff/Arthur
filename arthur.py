@@ -39,12 +39,13 @@ class Arthur:
         '''
         # Hardcoded Input: "Start" to "End"
         route = route.split(" to ")
-        return uber_controller.get_prices(route[0], route[1]));
+        return uber_controller.get_prices(route[0], route[1]);
 
 
 
     def do_news(self, type_of_news):
-        print topnews_controller.get_top_news()
+        return topnews_controller.get_top_news()
+
 
     def do_places(self,category):
         print "places"
