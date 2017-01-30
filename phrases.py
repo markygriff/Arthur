@@ -5,7 +5,7 @@
 GREETINGS = ["hello","hi","hey","sup","greetings","howdy","yo"]
 GOODBYES = ["goodbye", "bye", "cya"]
 DEFAULT_RESPONSES = ["I'm sorry, I don't quite understand what you mean.", "*stares at you wantingly*"]
-GREETING_RESPONSES = ["I. Am. Arthur.", "Hey buddy!", "Hey there, what can I do for ya?","Howdy!","Ohhhhh snap!"]
+GREETING_RESPONSES = ["I. Am. Arthur.", "Hey buddy!", "Hey there, what can I do for ya?","Hey There!","Ohhhhh snap!"]
 GOODBYE_RESPONSES = ["Later Gator!"]
 RESPONSES_ABOUT_USER = ["Ok!","Swell!","I'm a meme!","Thanks...?"]
 
@@ -49,7 +49,7 @@ def determine_response(msg):
     if not resp:
         resp = random.choice(DEFAULT_RESPONSES)
     if msg.isupper():
-        return resp.upper()    
+        return resp.upper()
     return resp
 
 def check_for_direct_comment(pronoun, noun, adjective):

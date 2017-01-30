@@ -7,10 +7,11 @@ import uber_controller
 class Arthur:
 
     def __init__(self):
-
         self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"WWhich news source?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"], "restaurant": [self.do_places, "Bar or Dine?"]}
         self.quest_word = None
         self.questing = False
+        # nltk.model.ngram.NgramModel(3, tokens)
+        self._model = None
 
     def respond_to(self, msg):
         result = self.dict[self.quest_word][0](msg)
@@ -18,8 +19,6 @@ class Arthur:
         for i in result:
             string += "> " + i + "\n\n"
         return string
-
-
 
     def handle_input(self,msg):
         refine_msg = msg.lower()
@@ -39,7 +38,6 @@ class Arthur:
         # Hardcoded Input: "Start" to "End"
         route = route.split(" to ")
         return uber_controller.get_prices(route[0], route[1]);
-
 
 
     def do_news(self, news_source):
