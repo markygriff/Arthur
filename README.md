@@ -1,4 +1,4 @@
-[![Arthur](https://github.com/markygriff/Arthur/raw/master/ArthurLogo.png)]
+![Arthur](https://github.com/markygriff/Arthur/raw/master/ArthurLogo.png)
 
 # Arthur
 
