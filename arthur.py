@@ -2,12 +2,12 @@ import string
 import topnews_controller
 import phrases
 import uber_controller
-
+import places_controller
 
 class Arthur:
 
     def __init__(self):
-        self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"WWhich news source?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"], "restaurant": [self.do_places, "Bar or Dine?"]}
+        self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"Which news source?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"], "restaurant": [self.do_places, "Bar or Dine?"]}
         self.quest_word = None
         self.questing = False
         # nltk.model.ngram.NgramModel(3, tokens)
@@ -16,7 +16,7 @@ class Arthur:
     def respond_to(self, msg):
         result = self.dict[self.quest_word][0](msg)
         string = "Here's what I got for ya pal!\n\n"
-        for i in result:
+        for i in result[:5]:
             string += "> " + i + "\n\n"
         return string
 
@@ -45,7 +45,8 @@ class Arthur:
 
 
     def do_places(self,category):
-        print "places"
+        places_fn = getattr(places_controller,'get_places_'+category.lower())
+        return places_fn()
 
     def do_stock(self, ticker_symbol):
         print "stock"
@@ -55,6 +56,8 @@ class Arthur:
 
 if __name__ == '__main__':
     x = Arthur()
-    prompt = raw_input("Prompt: ")
+    #prompt = raw_input("Prompt: ")
     msg = raw_input("Msg: ")
-    x.action(prompt, msg)
+    x.quest_word = "uber"
+    result = x.respond_to(msg)
+    print(result)

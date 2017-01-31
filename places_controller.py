@@ -7,7 +7,7 @@ API_key = 'AIzaSyA4fllD-4FhUKiUYUdoJwRzCfn-riQMsU8'
 google_places = GooglePlaces(API_key)
 LOCATION = 'Edmonton'
 
-def get_places_restaurant(k=None):
+def get_places_dine(k=None):
     query_result = google_places.nearby_search(
         location=LOCATION,
         keyword=k,
@@ -19,8 +19,8 @@ def get_places_restaurant(k=None):
     places = []
     for place in query_result.places:
         place.get_details()
-        print place.name
-        print place.geo_location
+        #print place.name
+        #print place.geo_location
         # print place.place_id
         #
         # # The following method has to make a further API call.
@@ -32,7 +32,35 @@ def get_places_restaurant(k=None):
         # print place.international_phone_number
         # print place.website
         # print place.url
-        places.append(place)
+        places.append(str(place.name))
+    return places
+
+def get_places_bar(k=None):
+    query_result = google_places.nearby_search(
+        location=LOCATION,
+        keyword=k,
+        radius=1000,
+        types=[types.TYPE_BAR])
+
+    # if query_result.has_attributions:
+    #     print query_result.html_attributions
+    places = []
+    for place in query_result.places:
+        place.get_details()
+        #print place.name
+        #print place.geo_location
+        # print place.place_id
+        #
+        # # The following method has to make a further API call.
+        # place.get_details()
+        # # Referencing any of the attributes below, prior to making a call to
+        # # get_details() will raise a googleplaces.GooglePlacesAttributeError.
+        # print place.details # A dict matching the JSON response from Google.
+        # print place.local_phone_number
+        # print place.international_phone_number
+        # print place.website
+        # print place.url
+        places.append(str(place.name))
     return places
 
 def get_places_health(k=None):
