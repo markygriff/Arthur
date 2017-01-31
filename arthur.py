@@ -3,6 +3,7 @@ import topnews_controller
 import phrases
 import uber_controller
 import places_controller
+import stock_controller
 
 class Arthur:
 
@@ -49,7 +50,8 @@ class Arthur:
         return places_fn()
 
     def do_stock(self, ticker_symbol):
-        print "stock"
+        return stock_controller.get_latest_price(ticker_symbol)
+
 
     def do_weather(self, location):
         print "weather"
@@ -58,6 +60,6 @@ if __name__ == '__main__':
     x = Arthur()
     #prompt = raw_input("Prompt: ")
     msg = raw_input("Msg: ")
-    x.quest_word = "uber"
+    x.quest_word = "stock"
     result = x.respond_to(msg)
     print(result)
