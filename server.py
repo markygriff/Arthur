@@ -5,7 +5,7 @@ import json
 
 app = Flask(__name__)
 
-ACCESS_TOKEN = "EAACZBlPXesb0BALRYMeooVhYbScAAJFXd3ZBAJHxZCrD3ZAK5sGyrkeD8WnI3Mck5fr98AHryCJC8lBE9VfQqTWsU9oPSqQpeNxrDhlXTd4Br4ewyzOfLXB3e03eRrzFvSuA6pyFVTw6AukSjh4a5Jfe8XrhlAYXxFGrHnoZAiwZDZD"
+ACCESS_TOKEN = "EAACZBlPXesb0BAPlCChQCOYSBO687GxNdET6MduVZAs7F1zazZB4qym4qmgHRsrKMTryw3JTZCw4LhVVw4Hz9z2L06OkWiO8zzTE4wr0IuZBN7x81kx5f4iLtNraeVpAcVMCH77lKMKvEbYZAWPoIgPfUaG7wnJVipXxbT7jEH0gZDZD"
 VERIFY_TOKEN = 'secret'
 
 arthur = Arthur()
@@ -69,7 +69,7 @@ def handle_incoming_messages():
 @app.route('/', methods=['GET'])
 def handle_verification():
     print "Handling Verification."
-    if request.args.get('hub.verify_token', '') == 'VERIFY_TOKEN':
+    if request.args.get('hub.verify_token', '') == VERIFY_TOKEN:
         print "Verification successful!"
         return request.args.get('hub.challenge', '')
     else:
