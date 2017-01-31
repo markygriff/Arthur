@@ -7,6 +7,28 @@ import stock_controller
 
 class Arthur:
 
+    '''
+
+        Currently our code is working great, we are able to interact with Arthur and
+            get information from our supported APIs.
+
+        MINOR TODOS:
+
+            - Have smaller version of the arthurlogo.png for the README
+            - Expand the README to explan how to interact with Arthur's functionality
+
+        BIG TODOS:
+
+            - Clean up our code. Although our code works, it is currently very
+            choppyand not very clean. This is a large task, but I believe that it
+            is important before adding on anymore funcitonality.
+
+            - Expand converation ability
+
+            - Add-on new APIs
+
+    '''
+
     def __init__(self):
         self.dict = {"uber": [self.do_uber, "From Where to Where?"], "news": [self.do_news,"Which news source?"], "weather": [self.do_weather, "Where?"], "stock": [self.do_stock, "Company's ticker symbol?"], "restaurant": [self.do_places, "Bar or Dine?"]}
         self.quest_word = None
