@@ -11,6 +11,8 @@ VERIFY_TOKEN = 'secret'
 
 arthur = Arthur(brown.words())
 
+import tensorflow as tf
+import execute
 sess = tf.Session()
 sess, model, enc_vocab, rev_dec_vocab = execute.init_session(sess, conf='seq2seq_serve.ini')
 
@@ -28,11 +30,20 @@ def send_message(recipient, text):
     '''
     Send the message text to recipient.
     '''
+    # r = requests.post("https://graph.facebook.com/v2.6/me/messages",
+    #     params={"access_token": ACCESS_TOKEN},
+    #     data=json.dumps({
+    #         "recipient": {"id": recipient},
+    #         "message": {"text": text}
+    #     }),
+    #     headers={'Content-type': 'application/json'})
+    text_auto = execute.decode_line(sess, model, enc_vocab, rev_dec_vocab, request.form['msg'] )
+    print 'Automated text: ', text_auto
     r = requests.post("https://graph.facebook.com/v2.6/me/messages",
         params={"access_token": ACCESS_TOKEN},
         data=json.dumps({
             "recipient": {"id": recipient},
-            "message": {"text": text}
+            "message": {"text": text_auto}
         }),
         headers={'Content-type': 'application/json'})
     if r.status_code != requests.codes.ok:

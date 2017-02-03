@@ -29,7 +29,7 @@ def determine_response(msg):
     # clean = preprocess_text(msg)
     blob = TextBlob(msg)
     pronoun, noun, adjective, verb = find_candidate_parts_of_sentence(blob)
-    print 'Pronoun, Noun, Adj, Verb\n>> ',pronoun, noun, adjective, verb
+    print 'Pronoun, Noun, Adj, Verb >> ',pronoun, noun, adjective, verb
     # check for comment directly targeted towards our bot
     # resp = check_for_direct_comment(pronoun, noun, adjective)
     resp = None
