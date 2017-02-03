@@ -2,13 +2,17 @@ from flask import Flask, request
 from arthur import Arthur
 import requests
 import json
+from nltk.corpus import brown
 
 app = Flask(__name__)
 
 ACCESS_TOKEN = "EAACZBlPXesb0BAPlCChQCOYSBO687GxNdET6MduVZAs7F1zazZB4qym4qmgHRsrKMTryw3JTZCw4LhVVw4Hz9z2L06OkWiO8zzTE4wr0IuZBN7x81kx5f4iLtNraeVpAcVMCH77lKMKvEbYZAWPoIgPfUaG7wnJVipXxbT7jEH0gZDZD"
 VERIFY_TOKEN = 'secret'
 
-arthur = Arthur()
+arthur = Arthur(brown.words())
+
+sess = tf.Session()
+sess, model, enc_vocab, rev_dec_vocab = execute.init_session(sess, conf='seq2seq_serve.ini')
 
 def messaging_events(payload):
     '''

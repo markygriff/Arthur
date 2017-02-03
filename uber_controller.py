@@ -13,7 +13,7 @@ import google_geocode
 
 
 def get_prices(start, end):
-    start_latlon = google_geocode.get_latlon(start)
+    start_latlon = google_geocode.get_latlon(start+', Edmonton')
     end_latlon = google_geocode.get_latlon(end)
     session = Session(server_token='2L2ejAw48Rafdg9S9gGnm1yL9AfpcPUSak3YONWF')
     client = UberRidesClient(session)
@@ -36,8 +36,9 @@ def get_prices(start, end):
     for i in range(len(estimation)):
          result.append(estimation[i]["display_name"] + ": " + estimation[i]["estimate"])
 
+    print result
     return result
 
 
 if __name__ == "__main__":
-    main()
+    get_prices('5316 104a Street','Butterdome')
