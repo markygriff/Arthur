@@ -3,6 +3,7 @@ from arthur import Arthur
 import requests
 import json
 from nltk.corpus import brown
+import re
 
 app = Flask(__name__)
 
@@ -30,20 +31,12 @@ def send_message(recipient, text):
     '''
     Send the message text to recipient.
     '''
-    # r = requests.post("https://graph.facebook.com/v2.6/me/messages",
-    #     params={"access_token": ACCESS_TOKEN},
-    #     data=json.dumps({
-    #         "recipient": {"id": recipient},
-    #         "message": {"text": text}
-    #     }),
-    #     headers={'Content-type': 'application/json'})
-    text_auto = execute.decode_line(sess, model, enc_vocab, rev_dec_vocab, request.form['msg'] )
-    print 'Automated text: ', text_auto
+    print 'Response: ', text
     r = requests.post("https://graph.facebook.com/v2.6/me/messages",
         params={"access_token": ACCESS_TOKEN},
         data=json.dumps({
             "recipient": {"id": recipient},
-            "message": {"text": text_auto}
+            "message": {"text": text}
         }),
         headers={'Content-type': 'application/json'})
     if r.status_code != requests.codes.ok:
@@ -57,11 +50,18 @@ def handle_incoming_messages():
         if arthur.questing == False:
             response = arthur.handle_input(message)
         else:
-            print "MESSAGE <", message, ">"
             response = arthur.respond_to(message)
             arthur.questing = False
         print "Outgoing to %s: %s" % (sender, response)
-        send_message(sender, response)
+
+        # send_message(sender, response)
+        text_gen = execute.decode_line(sess, model, enc_vocab, rev_dec_vocab, message )
+        text_gen = re.sub(r'\s([?.!\'"](?:\s|$))', r'\1', text_gen)
+        for word in text_gen.split(" "):
+            if word is "_UNK":
+                text_gen = response
+                break
+        send_message(sender, text_gen)
         break
     return "ok"
 
