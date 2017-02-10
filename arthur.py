@@ -76,10 +76,10 @@ class Arthur:
             if word in self.dict:
                 self.quest_word = word
                 self.questing = True
-                return [self.dict[word][1], word][0] # follow up question
+                return [self.dict[word][1], word][0], 1 # follow up question
         self.quest_word = None
         self.questing = False
-        return phrases.determine_response(msg)
+        return phrases.determine_response(msg), 0
 
 
     def do_uber(self, route):

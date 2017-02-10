@@ -48,20 +48,22 @@ def handle_incoming_messages():
     for sender, message in messaging_events(payload):
         print "Incoming from %s: %s" % (sender, message)
         if arthur.questing == False:
-            response = arthur.handle_input(message)
+            response, follow_up = arthur.handle_input(message)
         else:
-            response = arthur.respond_to(message)
-            arthur.questing = False
-        print "Outgoing to %s: %s" % (sender, response)
+            response, follow_up = arthur.respond_to(message)
+        print "Outgoing to %s: %s" % (sender, q_response)
 
         # send_message(sender, response)
-        text_gen = execute.decode_line(sess, model, enc_vocab, rev_dec_vocab, message )
-        text_gen = re.sub(r'\s([?.!\'"](?:\s|$))', r'\1', text_gen)
-        for word in text_gen.split(" "):
-            if word is "_UNK":
-                text_gen = response
-                break
-        send_message(sender, text_gen)
+        if follow_up == 0:
+            text_gen = execute.decode_line(sess, model, enc_vocab, rev_dec_vocab, message )
+            text_gen = re.sub(r'\s([?.!\'"](?:\s|$))', r'\1', text_gen)
+            for word in text_gen.split(" "):
+                if word is "_UNK":
+                    text_gen = response
+                    break
+            send_message(sender, text_gen)
+        else:
+            send_message(sender, response)
         break
     return "ok"
 
