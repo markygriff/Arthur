@@ -46,6 +46,7 @@ class Arthur:
         string = "Here's what I got for ya pal!\n\n"
         for i in result[:5]:
             string += "> " + i + "\n\n"
+        self.questing = False
         return string
 
     # def determine_response(self, message):

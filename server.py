@@ -50,23 +50,23 @@ def handle_incoming_messages():
         if arthur.questing == False:
             response, follow_up = arthur.handle_input(message)
         else:
-            response, follow_up = arthur.respond_to(message)
+            response = arthur.respond_to(message)
+            follow_up = 1
         print "Outgoing to %s: %s" % (sender, response)
 
-        # send_message(sender, responseSS
+        # send_message(sender, response)
         if follow_up == 0:
-            print "here 1"
             text_gen = execute.decode_line(sess, model, enc_vocab, rev_dec_vocab, message )
-            print "here 2"
             text_gen = re.sub(r'\s([?.!\'"](?:\s|$))', r'\1', text_gen)
             for word in text_gen.split(" "):
-                if word is "_UNK" or word is "_UNK!" or word is "_UNK?":
+                print "Word:  ", word
+                if word == "_UNK" or word == "_UNK!" or word == "_UNK?" or word == "_UNK.":
                     text_gen = response
                     break
-            print "here 3"
             send_message(sender, text_gen)
         else:
             send_message(sender, response)
+            follow_up = 0
         break
     return "ok"
 
